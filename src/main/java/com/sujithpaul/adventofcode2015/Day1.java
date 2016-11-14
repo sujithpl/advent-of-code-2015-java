@@ -4,7 +4,7 @@ package com.sujithpaul.adventofcode2015;
  * Hello world!
  *
  */
-public class App 
+public class Day1 
 {
     public static void main( String[] args )
     {

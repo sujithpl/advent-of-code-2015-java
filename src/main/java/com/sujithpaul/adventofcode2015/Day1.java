@@ -2,8 +2,9 @@ package com.sujithpaul.adventofcode2015;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.ObjectInputStream.GetField;
+import java.util.Arrays;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Day1 {
 
@@ -33,16 +34,7 @@ public class Day1 {
 	}
 
 	public int finalFloorPosition(String str) {
-		int floor = 0;
-
-		for (int i = 0; i < str.length(); i++) {
-			if (str.charAt(i) == '(')
-				floor++;
-			else if (str.charAt(i) == ')')
-				floor--;
-		}
-
-		return floor;
+		return str.chars().filter(ch -> ch == '(' || ch == ')').map(ch -> ch == '(' ? 1 : -1).sum();
 	}
 
 	public int basementEntryPoint(String str) {
@@ -58,7 +50,6 @@ public class Day1 {
 				break;
 			}
 		}
-
 		return step;
 	}
 

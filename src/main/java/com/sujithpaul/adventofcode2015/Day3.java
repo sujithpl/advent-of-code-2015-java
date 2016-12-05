@@ -47,6 +47,7 @@ public class Day3 {
 		obj.insertNextHouse('v');
 		System.out.println(obj.giftHouses.size());
 		System.out.println(obj.giftHouses.toString());
+		
 	}
 
 }

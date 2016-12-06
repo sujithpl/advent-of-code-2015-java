@@ -22,13 +22,22 @@ public class Day2 {
 	}
 
 	public static void main(String[] args) {
-		int sqftOfWrappingPaper = InputProcessor.readFile("day2-input.txt").map(s -> s.split("x"))
-				.map(InputProcessor::convertStringsArrayToIntsArray).map(Day2::areaOfWrappingPaper)
-				.mapToInt(Integer::intValue).sum();
+
+		int sqftOfWrappingPaper = InputProcessor.readFile("files/day2-input.txt") //
+				.map(s -> s.split("x")) //
+				.map(InputProcessor::convertStringsArrayToIntsArray) //
+				.map(Day2::areaOfWrappingPaper) //
+				.mapToInt(Integer::intValue) //
+				.sum();
+		
 		System.out.println("Total square feet of wrapping paper: " + sqftOfWrappingPaper);
-		int feetOfRibbon = InputProcessor.readFile("day2-input.txt").map(s -> s.split("x"))
-				.map(InputProcessor::convertStringsArrayToIntsArray).map(Day2::lengthOfRibbon)
-				.mapToInt(Integer::intValue).sum();
+		
+		int feetOfRibbon = InputProcessor.readFile("files/day2-input.txt")
+				.map(s -> s.split("x")) //
+				.map(InputProcessor::convertStringsArrayToIntsArray) //
+				.map(Day2::lengthOfRibbon) //
+				.mapToInt(Integer::intValue) //
+				.sum();
 		System.out.println("Total feet of wrapping paper: " + feetOfRibbon);
 	}
 

@@ -7,13 +7,21 @@ public class Day3 {
 
 	private int currentXCoordinate = 0;
 	private int currentYCoordinate = 0;
-	private Map<String, Integer> giftHouses = new HashMap<String, Integer>();
+	private Map<String, Integer> giftHouses;
 
-	public static String buildCoordinates(int x, int y){
+	public Day3(String instructions) {
+		giftHouses = new HashMap<String, Integer>();
+		giftHouses.put(buildCoordinates(0, 0), 1);
+		instructions //
+			.chars() //
+			.forEach(direction -> insertNextHouse((char)direction));
+	}
+	
+	private static String buildCoordinates(int x, int y){
 		return String.valueOf(x) + ":" + String.valueOf(y);
 	}
 	
-	public void insertNextHouse(char ch) {
+	private void insertNextHouse(char ch) {
 		switch (ch) {
 		case '>':
 			currentXCoordinate += 1;
@@ -31,22 +39,24 @@ public class Day3 {
 		
 		String coordinates = buildCoordinates(currentXCoordinate, currentYCoordinate);
 		
-		if (giftHouses.containsKey(coordinates)) {
-			giftHouses.put(coordinates, giftHouses.get(coordinates) + 1);
-		} else {
-			giftHouses.put(coordinates, 1);
-		}
+		Integer currentGiftCount = giftHouses.containsKey(coordinates) ? giftHouses.get(coordinates) : 0;
+		giftHouses.put(coordinates, currentGiftCount + 1);
+	}
+	
+	public int getNumberOfHousesVisited() {
+		return giftHouses.size();			
+	}
+	
+	public String toString() {
+		return giftHouses.toString();
 	}
 
 	public static void main(String[] args) {
-		Day3 obj = new Day3();
-		obj.giftHouses.put(buildCoordinates(0, 0), 1);
-		obj.insertNextHouse('>');
-		obj.insertNextHouse('<');
-		obj.insertNextHouse('^');
-		obj.insertNextHouse('v');
-		System.out.println(obj.giftHouses.size());
-		System.out.println(obj.giftHouses.toString());
+		String instructions = "><^v"; //TODO
+		
+		Day3 obj = new Day3(instructions);		
+		System.out.println(obj.getNumberOfHousesVisited());
+		System.out.println(obj.toString());
 		
 	}
 

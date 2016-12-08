@@ -58,38 +58,21 @@ public class Day3 {
 		String instructions = InputProcessor.readFile("files/day3-input.txt") //
 				.collect(Collectors.joining());
 
-		Day3 obj = new Day3(instructions);
-		System.out.println("Number of Houses with at least one gift (Santa only): " + obj.getNumberOfHousesVisited());
-		// System.out.println(obj.toString());
+		Day3 allSanta = new Day3(instructions);
+		System.out.println("Number of Houses with at least one gift (All Santa): " + allSanta.getNumberOfHousesVisited());
 
-		int[] c = { 0 };
+		String[] splitInstructions = InputProcessor.splitStringByAlternatingChars(instructions);
+		Day3 onlySanta = new Day3(splitInstructions[0]);
+		Day3 onlyRoboSanta = new Day3(splitInstructions[1]);
 
-		String ins = instructions //
-				.codePoints()
-				// .parallel() // uncomment this line for large strings
-				.filter(x -> c[0]++ % 2 == 0)
-				.collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
-				.toString();
-//System.out.println(ins);
-		Day3 obj1 = new Day3(ins);
+		System.out.println("Number of Houses with at least one gift (Santa only): " + onlySanta.getNumberOfHousesVisited());
+		System.out.println(
+				"Number of Houses with at least one gift (Robo-Santa only): " + onlyRoboSanta.getNumberOfHousesVisited());
 
-		int[] d = { 0 };
-
-		String inst = instructions //
-				.codePoints()
-				// .parallel() // uncomment this line for large strings
-				.filter(x -> d[0]++ % 2 != 0)
-				.collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
-				.toString();
-//		System.out.println(inst);
-
-
-		Day3 obj2 = new Day3(inst);
-
-		System.out.println("Number of Houses with at least one gift (Santa only): " + obj1.getNumberOfHousesVisited());
-		System.out.println("Number of Houses with at least one gift (Santa only): " + obj2.getNumberOfHousesVisited());
-		obj1.getGiftHouses().putAll(obj2.getGiftHouses());
-		System.out.println(obj1.getGiftHouses().size());
+		Map<String, Integer> combinedGiftHouses = onlySanta.getGiftHouses();
+		combinedGiftHouses.putAll(onlyRoboSanta.getGiftHouses());
+		System.out
+				.println("Number of Houses with at least one gift (Santa + Robo-Santa): " + combinedGiftHouses.size());
 
 	}
 

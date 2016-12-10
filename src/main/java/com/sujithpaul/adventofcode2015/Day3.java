@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import com.sujithpaul.adventofcode2015.utilities.InputProcessor;
+import com.sujithpaul.adventofcode2015.utilities.MapHandler;
 
 public class Day3 {
 
@@ -69,8 +70,7 @@ public class Day3 {
 		System.out.println(
 				"Number of Houses with at least one gift (Robo-Santa only): " + onlyRoboSanta.getNumberOfHousesVisited());
 
-		Map<String, Integer> combinedGiftHouses = onlySanta.getGiftHouses();
-		combinedGiftHouses.putAll(onlyRoboSanta.getGiftHouses());
+		Map<String, Integer> combinedGiftHouses = MapHandler.combineMap(onlySanta.getGiftHouses(), onlyRoboSanta.getGiftHouses());
 		System.out
 				.println("Number of Houses with at least one gift (Santa + Robo-Santa): " + combinedGiftHouses.size());
 

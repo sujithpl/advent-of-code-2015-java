@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import com.sujithpaul.adventofcode2015.utilities.InputProcessor;
 import com.sujithpaul.adventofcode2015.utilities.MapHandler;
+import com.sujithpaul.adventofcode2015.utilities.StringHandler;
 
 public class Day3 {
 
@@ -62,7 +63,7 @@ public class Day3 {
 		Day3 allSanta = new Day3(instructions);
 		System.out.println("Number of Houses with at least one gift (All Santa): " + allSanta.getNumberOfHousesVisited());
 
-		String[] splitInstructions = InputProcessor.splitStringByAlternatingChars(instructions);
+		String[] splitInstructions = StringHandler.splitStringByAlternatingChars(instructions);
 		Day3 onlySanta = new Day3(splitInstructions[0]);
 		Day3 onlyRoboSanta = new Day3(splitInstructions[1]);
 

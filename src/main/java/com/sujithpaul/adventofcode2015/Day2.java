@@ -3,6 +3,7 @@ package com.sujithpaul.adventofcode2015;
 import java.util.Arrays;
 
 import com.sujithpaul.adventofcode2015.utilities.InputProcessor;
+import com.sujithpaul.adventofcode2015.utilities.StringHandler;
 
 public class Day2 {
 
@@ -25,7 +26,7 @@ public class Day2 {
 
 		int sqftOfWrappingPaper = InputProcessor.readFile("files/day2-input.txt") //
 				.map(s -> s.split("x")) //
-				.map(InputProcessor::convertStringsArrayToIntsArray) //
+				.map(StringHandler::convertStringsArrayToIntsArray) //
 				.map(Day2::areaOfWrappingPaper) //
 				.mapToInt(Integer::intValue) //
 				.sum();
@@ -34,7 +35,7 @@ public class Day2 {
 		
 		int feetOfRibbon = InputProcessor.readFile("files/day2-input.txt")
 				.map(s -> s.split("x")) //
-				.map(InputProcessor::convertStringsArrayToIntsArray) //
+				.map(StringHandler::convertStringsArrayToIntsArray) //
 				.map(Day2::lengthOfRibbon) //
 				.mapToInt(Integer::intValue) //
 				.sum();

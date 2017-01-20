@@ -1,38 +1,32 @@
 package com.sujithpaul.adventofcode2015;
 
-import junit.framework.Test;
+import org.junit.Before;
+import org.junit.Test;
+
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
 
-/**
- * Unit test for simple App.
- */
-public class Day1Test 
-    extends TestCase
-{
-    /**
-     * Create the test case
-     *
-     * @param testName name of the test case
-     */
-    public Day1Test( String testName )
-    {
-        super( testName );
-    }
+public class Day1Test extends TestCase {
 
-    /**
-     * @return the suite of tests being tested
-     */
-    public static Test suite()
-    {
-        return new TestSuite( Day1Test.class );
-    }
+	private Day1 obj;
 
-    /**
-     * Rigourous Test :-)
-     */
-    public void testApp()
-    {
-        assertTrue( true );
-    }
+	@Before
+	public void setUp() {
+		this.obj = new Day1();
+	}
+
+	@Test
+	public void testfinalFloorPositionMethod() {
+		assertEquals(0, this.obj.finalFloorPosition("(())"));
+		assertEquals(0, this.obj.finalFloorPosition("()()"));
+		assertEquals(3, this.obj.finalFloorPosition("((("));
+		assertEquals(3, this.obj.finalFloorPosition("(()(()("));
+		assertEquals(-3, this.obj.finalFloorPosition(")))"));
+		assertEquals(-3, this.obj.finalFloorPosition(")())())"));
+	}
+	
+	@Test
+	public void testBasementEntryPointMethod(){
+		assertEquals(1, obj.basementEntryPoint(")"));
+		assertEquals(5, obj.basementEntryPoint("()())"));
+	}
 }

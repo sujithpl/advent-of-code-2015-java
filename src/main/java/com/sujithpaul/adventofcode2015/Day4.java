@@ -34,9 +34,8 @@ public class Day4 {
 	}
 
 	public static void main(String[] args) {
-		System.out.println("Input for coin 1: " + mineAdventCoin("bgvyzdsv", "00000"));
-		System.out.println("Input for coin 2: " + mineAdventCoin("bgvyzdsv", "000000"));
-
+		 System.out.println("Input for coin 1: " + mineAdventCoin("bgvyzdsv", "00000"));
+		 System.out.println("Input for coin 2: " + mineAdventCoin("bgvyzdsv", "000000"));
 	}
 
 }

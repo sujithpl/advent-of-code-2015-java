@@ -14,7 +14,7 @@ public class Day5 {
 		return (matcher.find());
 	};
 
-	public static Predicate<String> containsDoubleLetters = (str) -> {
+	public static Predicate<String> containsRepeatingLetters = (str) -> {
 		Pattern pattern = Pattern.compile("(.)\\1");
 		Matcher matcher = pattern.matcher(str);
 		return matcher.find();
@@ -26,13 +26,37 @@ public class Day5 {
 		return !(matcher.find());
 	};
 
+	public static Predicate<String> niceStringPart1Rules = (str) -> {
+		return containsAtLeastThreeVowels.test(str) && containsRepeatingLetters.test(str) && doesNotContainAbCdPqXy.test(str);
+	};
+
+	public static Predicate<String> containsRepeatingPairOfLetters = (str) -> {
+		Pattern pattern = Pattern.compile("((.)(.)).*\\1");
+		Matcher matcher = pattern.matcher(str);
+		return matcher.find();
+	};
+
+	public static Predicate<String> containsRepeatingLettersWithAnotherInBetween = (str) -> {
+		Pattern pattern = Pattern.compile("(.).\\1");
+		Matcher matcher = pattern.matcher(str);
+		return matcher.find();
+	};
+
+	public static Predicate<String> niceStringPart2Rules = (str) -> {
+		return containsRepeatingPairOfLetters.test(str) && containsRepeatingLettersWithAnotherInBetween.test(str);
+	};
+
 	public static void main(String[] args) {
 		long numOfNiceStrings = InputProcessor.readFile("files/day5-input.txt") //
-				.filter(containsAtLeastThreeVowels) //
-				.filter(containsDoubleLetters) //
-				.filter(doesNotContainAbCdPqXy) //
+				.filter(niceStringPart1Rules) //
 				.count();
 		System.out.println("Number of nice strings according to part 1 rules: " + numOfNiceStrings);
+		
+		long numOfActualNiceStrings = InputProcessor.readFile("files/day5-input.txt") //
+				.filter(niceStringPart2Rules) //
+				.count();
+		System.out.println("Number of nice strings according to part 2 rules: " + numOfActualNiceStrings);
+		
 	}
 
 }

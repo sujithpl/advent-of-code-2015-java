@@ -10,9 +10,6 @@ import org.junit.runners.Parameterized.Parameters;
 
 import junit.framework.TestCase;
 
-/**
- * Unit test for simple App.
- */
 @RunWith(Parameterized.class)
 public class Day3Test extends TestCase {
 

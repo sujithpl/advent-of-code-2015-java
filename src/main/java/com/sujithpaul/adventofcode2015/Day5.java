@@ -8,42 +8,47 @@ import com.sujithpaul.adventofcode2015.utilities.InputProcessor;
 
 public class Day5 {
 
+	private static final Pattern containsAtLeastThreeVowelsPattern = Pattern.compile("[aeiou].*[aeiou].*[aeiou]");
+	
 	public static Predicate<String> containsAtLeastThreeVowels = (str) -> {
-		Pattern pattern = Pattern.compile("[aeiou].*[aeiou].*[aeiou]");
-		Matcher matcher = pattern.matcher(str);
+		Matcher matcher = containsAtLeastThreeVowelsPattern.matcher(str);
 		return (matcher.find());
 	};
 
+	private static final Pattern containsRepeatingLettersPattern = Pattern.compile("(.)\\1");
+	
 	public static Predicate<String> containsRepeatingLetters = (str) -> {
-		Pattern pattern = Pattern.compile("(.)\\1");
-		Matcher matcher = pattern.matcher(str);
+		Matcher matcher = containsRepeatingLettersPattern.matcher(str);
 		return matcher.find();
 	};
 
+	private static final Pattern doesNotContainAbCdPqXyPattern = Pattern.compile("(ab|cd|pq|xy)");
+	
 	public static Predicate<String> doesNotContainAbCdPqXy = (str) -> {
-		Pattern pattern = Pattern.compile("(ab|cd|pq|xy)");
-		Matcher matcher = pattern.matcher(str);
+		Matcher matcher = doesNotContainAbCdPqXyPattern.matcher(str);
 		return !(matcher.find());
 	};
 
 	public static Predicate<String> niceStringPart1Rules = (str) -> {
-		return containsAtLeastThreeVowels.test(str) && containsRepeatingLetters.test(str) && doesNotContainAbCdPqXy.test(str);
+		return containsAtLeastThreeVowels.and(containsRepeatingLetters).and(doesNotContainAbCdPqXy).test(str);
 	};
 
+	private static final Pattern containsRepeatingPairOfLettersPattern = Pattern.compile("((.)(.)).*\\1");
+	
 	public static Predicate<String> containsRepeatingPairOfLetters = (str) -> {
-		Pattern pattern = Pattern.compile("((.)(.)).*\\1");
-		Matcher matcher = pattern.matcher(str);
+		Matcher matcher = containsRepeatingPairOfLettersPattern.matcher(str);
 		return matcher.find();
 	};
 
+	private static final Pattern containsRepeatingLettersWithAnotherInBetweenPattern = Pattern.compile("(.).\\1");
+	
 	public static Predicate<String> containsRepeatingLettersWithAnotherInBetween = (str) -> {
-		Pattern pattern = Pattern.compile("(.).\\1");
-		Matcher matcher = pattern.matcher(str);
+		Matcher matcher = containsRepeatingLettersWithAnotherInBetweenPattern.matcher(str);
 		return matcher.find();
 	};
 
 	public static Predicate<String> niceStringPart2Rules = (str) -> {
-		return containsRepeatingPairOfLetters.test(str) && containsRepeatingLettersWithAnotherInBetween.test(str);
+		return containsRepeatingPairOfLetters.and(containsRepeatingLettersWithAnotherInBetween).test(str);
 	};
 
 	public static void main(String[] args) {

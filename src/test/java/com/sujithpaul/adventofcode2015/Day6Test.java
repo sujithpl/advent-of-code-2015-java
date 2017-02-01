@@ -27,16 +27,24 @@ public class Day6Test {
 
 	@Test
 	public void testTurnOnLights() {
-//		testLightGrid.turnOnLights(1, 1, 8, 8);
+		testLightGrid.turnOnLights(1, 1, 8, 8);
 		assertEquals(64, testLightGrid.countNumberOfLitLights());
 	}
 
 	@Test
 	public void testTurnOffLights() {
-//		testLightGrid.turnOnLights(0, 0, 8, 8);
+		testLightGrid.turnOnLights(0, 0, 8, 8);
 		assertEquals(81, testLightGrid.countNumberOfLitLights());
 		testLightGrid.turnOffLights(4, 4, 8, 8);
 		assertEquals(56, testLightGrid.countNumberOfLitLights());
+	}
+
+	@Test
+	public void testToggleLights() {
+		testLightGrid.turnOnLights(0, 0, 6, 7);
+		assertEquals(56, testLightGrid.countNumberOfLitLights());
+		testLightGrid.toggleLights(3, 4, 8, 8);
+		assertEquals(54, testLightGrid.countNumberOfLitLights());
 	}
 
 }

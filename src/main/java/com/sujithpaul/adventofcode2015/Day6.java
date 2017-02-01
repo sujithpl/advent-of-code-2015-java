@@ -1,9 +1,6 @@
 package com.sujithpaul.adventofcode2015;
 
-import java.util.function.Consumer;
 import java.util.function.Function;
-
-import com.sujithpaul.adventofcode2015.utilities.InputProcessor;
 
 public class Day6 {
 
@@ -18,12 +15,35 @@ public class Day6 {
 		this.resetAllLights();
 	}
 
-	public void resetAllLights() {
-		for (int row = 0; row < numberOfRows; row++) {
-			for (int col = 0; col < numberOfColumns; col++) {
-				lightGrid[row][col] = 0;
+	public void operateSetOfLights(int leftRow, int leftColumn, int rightRow, int rightColumn,
+			Function<Integer, Integer> operation) {
+		for (int row = leftRow; row <= rightRow; row++) {
+			for (int col = leftColumn; col <= rightColumn; col++) {
+				lightGrid[row][col] = operation.apply(lightGrid[row][col]);
 			}
 		}
+	}
+
+	private static Function<Integer, Integer> turnOff = i -> 0;
+
+	private static Function<Integer, Integer> turnOn = i -> 1;
+
+	private static Function<Integer, Integer> toggle = i -> i == 1 ? 0 : 1;
+
+	public void turnOnLights(int leftRow, int leftColumn, int rightRow, int rightColumn) {
+		this.operateSetOfLights(leftRow, leftColumn, rightRow, rightColumn, turnOn);
+	}
+
+	public void turnOffLights(int leftRow, int leftColumn, int rightRow, int rightColumn) {
+		this.operateSetOfLights(leftRow, leftColumn, rightRow, rightColumn, turnOff);
+	}
+
+	public void toggleLights(int leftRow, int leftColumn, int rightRow, int rightColumn) {
+		this.operateSetOfLights(leftRow, leftColumn, rightRow, rightColumn, toggle);
+	}
+
+	public void resetAllLights() {
+		this.operateSetOfLights(0, 0, numberOfRows - 1, numberOfColumns - 1, turnOff);
 	}
 
 	public int countNumberOfLitLights() {
@@ -38,35 +58,21 @@ public class Day6 {
 		return numOfLitLights;
 	}
 
-	public void turnOnLights(int leftRow, int leftColumn, int rightRow, int rightColumn, Function<Integer, Integer> behavior) {
-		for (int row = leftRow; row <= rightRow; row++) {
-			for (int col = leftColumn; col <= rightColumn; col++) {
-				lightGrid[row][col] = behavior.apply(lightGrid[row][col]);
-			}
-		}
-	}
-
-	public void turnOffLights(int leftRow, int leftColumn, int rightRow, int rightColumn) {
-		for (int row = leftRow; row <= rightRow; row++) {
-			for (int col = leftColumn; col <= rightColumn; col++) {
-				lightGrid[row][col] = 0;
-			}
-		}
-	}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Day6 day6 = new Day6(1000,1000);
-		
-//		long numOfNiceStrings = InputProcessor.readFile("files/day6-input.txt")
-//				.map(Day6::instructionConverter)
-//				.forEach({
-//					if(on)
-//						day6.turnOnLights(x, y, x1, x2, value -> 1);
-//					if(off)
-//						day6.turnOnLights(x, y, x1, x2, value -> 0);
-//					if(toggle)
-//						day6.turnOnLights(x, y, x1, x2, value -> value==0?1:0);
-//				})
+		Day6 day6 = new Day6(1000, 1000);
+
+		// long numOfNiceStrings =
+		// InputProcessor.readFile("files/day6-input.txt")
+		// .map(Day6::instructionConverter)
+		// .forEach({
+		// if(on)
+		// day6.turnOnLights(x, y, x1, x2, value -> 1);
+		// if(off)
+		// day6.turnOnLights(x, y, x1, x2, value -> 0);
+		// if(toggle)
+		// day6.turnOnLights(x, y, x1, x2, value -> value==0?1:0);
+		// })
 
 	}
 

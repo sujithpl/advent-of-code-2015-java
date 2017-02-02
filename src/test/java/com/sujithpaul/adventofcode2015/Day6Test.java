@@ -47,4 +47,8 @@ public class Day6Test {
 		assertEquals(54, testLightGrid.countNumberOfLitLights());
 	}
 
+	@Test
+	public void testProcessLightingInstruction(){
+		fail();
+	}
 }

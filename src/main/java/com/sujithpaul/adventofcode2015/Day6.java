@@ -1,6 +1,8 @@
 package com.sujithpaul.adventofcode2015;
 
 import java.util.function.Function;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Day6 {
 
@@ -58,10 +60,38 @@ public class Day6 {
 		return numOfLitLights;
 	}
 
+	private static final Pattern lightingInstructionPattern = Pattern
+			.compile("(.+) (\\d+),(\\d+) through (\\d+),(\\d+)");
+
+	public void processLightingInstruction(String instruction) {
+		Matcher matcher = lightingInstructionPattern.matcher(instruction);
+		if (matcher.find()) {
+			String operation = matcher.group(1);
+			int leftRow = Integer.parseInt(matcher.group(2));
+			int rightRow = Integer.parseInt(matcher.group(3));
+			int leftColumn = Integer.parseInt(matcher.group(4));
+			int rightColumn = Integer.parseInt(matcher.group(5));
+
+			switch (operation) {
+			case "turn on":
+				turnOnLights(leftRow, leftColumn, rightRow, rightColumn);
+				break;
+			case "turn off":
+				turnOffLights(leftRow, leftColumn, rightRow, rightColumn);
+				break;
+			case "toggle":
+				toggleLights(leftRow, leftColumn, rightRow, rightColumn);
+				break;
+			default:
+				break;
+			}
+
+		}
+	}
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Day6 day6 = new Day6(1000, 1000);
-
+		// Day6 day6 = new Day6(1000, 1000);
 		// long numOfNiceStrings =
 		// InputProcessor.readFile("files/day6-input.txt")
 		// .map(Day6::instructionConverter)

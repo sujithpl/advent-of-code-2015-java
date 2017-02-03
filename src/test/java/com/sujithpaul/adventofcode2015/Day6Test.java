@@ -49,6 +49,11 @@ public class Day6Test {
 
 	@Test
 	public void testProcessLightingInstruction(){
-		fail();
+		testLightGrid.processLightingInstruction("turn on 0,0 through 4,9");
+		assertEquals(50, testLightGrid.countNumberOfLitLights());
+		testLightGrid.processLightingInstruction("turn off 0,6 through 9,9");
+		assertEquals(30, testLightGrid.countNumberOfLitLights());
+		testLightGrid.processLightingInstruction("toggle 1,4 through 7,8");
+		assertEquals(49, testLightGrid.countNumberOfLitLights());
 	}
 }

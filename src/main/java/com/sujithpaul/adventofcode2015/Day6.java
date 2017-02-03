@@ -4,6 +4,8 @@ import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.sujithpaul.adventofcode2015.utilities.InputProcessor;
+
 public class Day6 {
 
 	private static Integer lightGrid[][];
@@ -68,8 +70,8 @@ public class Day6 {
 		if (matcher.find()) {
 			String operation = matcher.group(1);
 			int leftRow = Integer.parseInt(matcher.group(2));
-			int rightRow = Integer.parseInt(matcher.group(3));
-			int leftColumn = Integer.parseInt(matcher.group(4));
+			int leftColumn = Integer.parseInt(matcher.group(3));
+			int rightRow = Integer.parseInt(matcher.group(4));
 			int rightColumn = Integer.parseInt(matcher.group(5));
 
 			switch (operation) {
@@ -90,19 +92,9 @@ public class Day6 {
 	}
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		// Day6 day6 = new Day6(1000, 1000);
-		// long numOfNiceStrings =
-		// InputProcessor.readFile("files/day6-input.txt")
-		// .map(Day6::instructionConverter)
-		// .forEach({
-		// if(on)
-		// day6.turnOnLights(x, y, x1, x2, value -> 1);
-		// if(off)
-		// day6.turnOnLights(x, y, x1, x2, value -> 0);
-		// if(toggle)
-		// day6.turnOnLights(x, y, x1, x2, value -> value==0?1:0);
-		// })
+		Day6 day6 = new Day6(1000, 1000);
+		InputProcessor.readFile("files/day6-input.txt").forEach(str -> day6.processLightingInstruction(str));
+		System.out.println("Number of lit lights per part 1 rules: " + day6.countNumberOfLitLights());
 
 	}
 

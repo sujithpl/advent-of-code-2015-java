@@ -87,15 +87,58 @@ public class Day6 {
 			default:
 				break;
 			}
+		}
+	}
+
+	private static Function<Integer, Integer> turnUp = i -> ++i;
+
+	private static Function<Integer, Integer> turnDown = i -> i == 0 ? 0 : --i;
+
+	private static Function<Integer, Integer> turnUpTwice = i -> i += 2;
+
+	public void processLightingInstructionPartTwo(String instruction) {
+		Matcher matcher = lightingInstructionPattern.matcher(instruction);
+		if (matcher.find()) {
+			String operation = matcher.group(1);
+			int leftRow = Integer.parseInt(matcher.group(2));
+			int leftColumn = Integer.parseInt(matcher.group(3));
+			int rightRow = Integer.parseInt(matcher.group(4));
+			int rightColumn = Integer.parseInt(matcher.group(5));
+
+			switch (operation) {
+			case "turn on":
+				operateSetOfLights(leftRow, leftColumn, rightRow, rightColumn, turnUp);
+				break;
+			case "turn off":
+				operateSetOfLights(leftRow, leftColumn, rightRow, rightColumn, turnDown);
+				break;
+			case "toggle":
+				operateSetOfLights(leftRow, leftColumn, rightRow, rightColumn, turnUpTwice);
+				break;
+			default:
+				break;
+			}
 
 		}
+	}
+
+	public int calculateTotalValueOfLights() {
+		int value = 0;
+		for (int row = 0; row < numberOfRows; row++) {
+			for (int col = 0; col < numberOfColumns; col++) {
+					value += lightGrid[row][col];
+			}
+		}
+		return value;
 	}
 
 	public static void main(String[] args) {
 		Day6 day6 = new Day6(1000, 1000);
 		InputProcessor.readFile("files/day6-input.txt").forEach(str -> day6.processLightingInstruction(str));
-		System.out.println("Number of lit lights per part 1 rules: " + day6.countNumberOfLitLights());
-
+		System.out.println("Number of lit lights according to part 1 rules: " + day6.calculateTotalValueOfLights());
+		day6.resetAllLights();
+		InputProcessor.readFile("files/day6-input.txt").forEach(str -> day6.processLightingInstructionPartTwo(str));
+		System.out.println("Total Brightness of lights according to part 2 rules: " + day6.calculateTotalValueOfLights());
 	}
 
 }

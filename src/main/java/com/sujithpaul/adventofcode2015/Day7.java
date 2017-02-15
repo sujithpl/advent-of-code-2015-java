@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.BiFunction;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -34,6 +35,8 @@ public class Day7 {
 	public static int getIntValue(String key) {
 		return 0xffff & circuit.get(key);
 	}
+
+	public static Predicate<String> isNumberInputInstruction = str -> str.matches("\\d+ -> .+");
 
 	static Function<String, Integer> notOperation = s -> (~getValue(s));
 
@@ -92,9 +95,19 @@ public class Day7 {
 	}
 
 	public static void main(String[] args) {
-		InputProcessor.readFile("files/day7-input.txt").forEach(str -> Day7.processWiringInstruction(str));
-		System.out
-				.println("Value of wire a: " + Day7.getIntValue("a"));
+		InputProcessor.readFile("files/day7-input.txt") //
+				.filter(isNumberInputInstruction) //
+				.forEach(str -> {
+					System.out.println(str);
+					Day7.processWiringInstruction(str);
+				});
+		InputProcessor.readFile("files/day7-input.txt") //
+				.filter(isNumberInputInstruction.negate()) //
+				.forEach(str -> {
+					System.out.println(str);
+					Day7.processWiringInstruction(str);
+				});
+		System.out.println("Value of wire a: " + Day7.getIntValue("a"));
 	}
 
 }

@@ -17,13 +17,13 @@ public class Day7 {
 		circuit.put(key, instruction);
 	}
 
-	private static int getValue(String key) {
+	private static int getValue(String arg) {
 		int value = 0;
-		String instruction = circuit.get(key);
-		if (instruction.matches("\\d+")) {
-			value = Integer.valueOf(instruction);
+		if (arg.matches("\\d+")) {
+			value = Integer.valueOf(arg);
 		} else {
-			value = processWiringInstruction(instruction);
+			value = processWiringInstruction(circuit.get(arg));
+			circuit.put(arg, String.valueOf(value));
 		}
 		return value;
 	}
@@ -91,8 +91,9 @@ public class Day7 {
 		InputProcessor.readFile("files/day7-input.txt") //
 				.map(str -> str.split(" -> ")) //
 				.forEach(str -> setValue(str[1], str[0]));
-		// System.out.println("Value of wire a: " + getIntValue("a"));
-		System.out.println(circuit.get("a"));
+		System.out.println(circuit.size());
+		 System.out.println("Value of wire a: " + getIntValue("a"));
+//		System.out.println(circuit.get("a"));
 	}
 
 }

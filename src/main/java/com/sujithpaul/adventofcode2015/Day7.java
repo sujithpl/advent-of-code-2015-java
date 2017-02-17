@@ -13,7 +13,14 @@ public class Day7 {
 
 	private static Map<String, String> circuit = new HashMap<>();
 
-	private static void setValue(String key, String instruction) {
+	private static void initCircuit() {
+		circuit.clear();
+		InputProcessor.readFile("files/day7-input.txt") //
+				.map(str -> str.split(" -> ")) //
+				.forEach(str -> setValue(str[1], str[0]));
+	}
+
+	protected static void setValue(String key, String instruction) {
 		circuit.put(key, instruction);
 	}
 
@@ -88,12 +95,11 @@ public class Day7 {
 	}
 
 	public static void main(String[] args) {
-		InputProcessor.readFile("files/day7-input.txt") //
-				.map(str -> str.split(" -> ")) //
-				.forEach(str -> setValue(str[1], str[0]));
-		System.out.println(circuit.size());
-		 System.out.println("Value of wire a: " + getIntValue("a"));
-//		System.out.println(circuit.get("a"));
+		initCircuit();
+		int solution = getIntValue("a");
+		System.out.println("Value of wire a (part 1): " + solution);
+		initCircuit();
+		circuit.put("b", String.valueOf(solution));
+		System.out.println("Value of wire a (part 2): " + getIntValue("a"));
 	}
-
 }

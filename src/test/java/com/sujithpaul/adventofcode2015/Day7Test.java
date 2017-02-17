@@ -1,6 +1,8 @@
 package com.sujithpaul.adventofcode2015;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+
+import java.util.Arrays;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -13,14 +15,11 @@ public class Day7Test {
 
 	@Test
 	public void testProcessWiringInstruction() {
-		Day7.processWiringInstruction("123 -> x");
-		Day7.processWiringInstruction("456 -> y");
-		Day7.processWiringInstruction("x AND y -> d");
-		Day7.processWiringInstruction("x OR y -> e");
-		Day7.processWiringInstruction("x LSHIFT 2 -> f");
-		Day7.processWiringInstruction("y RSHIFT 2 -> g");
-		Day7.processWiringInstruction("NOT x -> h");
-		Day7.processWiringInstruction("NOT y -> i");
+		String[] input = { "123 -> x", "456 -> y", "x AND y -> d", "x OR y -> e", "x LSHIFT 2 -> f", "y RSHIFT 2 -> g",
+				"NOT x -> h", "NOT y -> i" };
+		Arrays.stream(input) //
+				.map(str -> str.split(" -> ")) //
+				.forEach(str -> Day7.setValue(str[1], str[0]));
 		assertEquals(72, Day7.getIntValue("d"));
 		assertEquals(507, Day7.getIntValue("e"));
 		assertEquals(492, Day7.getIntValue("f"));

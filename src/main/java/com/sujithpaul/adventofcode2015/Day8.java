@@ -27,6 +27,19 @@ public class Day8 {
 			.andThen(replaceDoubleAtWithPound) //
 			.andThen(replaceHexWithPercentageSign);
 
+	static Function<String, String> encodeStartingQuotes = s -> s.replaceAll("^\"", "!@!");
+
+	static Function<String, String> encodeEndingQuotes = s -> s.replaceAll("\"$", "!@!");
+
+	static Function<String, String> encodeBackSlash = s -> s.replaceAll("\\\\", "@@");
+
+	static Function<String, String> encodeQuotes = s -> s.replaceAll("\"", "@!");
+
+	static Function<String, String> convertToEncodedTextEquivalent = encodeStartingQuotes //
+			.andThen(encodeEndingQuotes) //
+			.andThen(encodeBackSlash) //
+			.andThen(encodeQuotes);
+
 	static ToIntFunction<? super String> getStringLength = s -> s.length();
 
 	static int countCharsInStream(Stream<String> stringStream, Function<String, String> streamConverter) {
@@ -38,11 +51,19 @@ public class Day8 {
 
 	public static void main(String[] args) {
 		int numberOfTextChars = countCharsInStream(InputProcessor.readFile("files/day8-input.txt"), (s) -> (s));
-		System.out.println(numberOfTextChars);
+		System.out.println("Number of characters in file: " + numberOfTextChars);
+
 		int numberOfInMemoryChars = countCharsInStream(InputProcessor.readFile("files/day8-input.txt"),
 				convertToInMemoryStringEquivalent);
-		System.out.println(numberOfInMemoryChars);
-		System.out.println("Diff: " + (numberOfTextChars - numberOfInMemoryChars));
+		System.out.println("Number of charecters in memory: " + numberOfInMemoryChars);
+
+		System.out.println("Part 1 Difference: " + (numberOfTextChars - numberOfInMemoryChars));
+		
+		int numberOfEncodedChars = countCharsInStream(InputProcessor.readFile("files/day8-input.txt"),
+				convertToEncodedTextEquivalent);
+		System.out.println("Number of characters in encoded text: " + numberOfEncodedChars);
+		
+		System.out.println("Part 2 Difference: " + (numberOfEncodedChars - numberOfTextChars));
 	}
 
 }

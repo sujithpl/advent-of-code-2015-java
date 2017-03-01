@@ -42,9 +42,9 @@ public class Day8 {
 
 	static ToIntFunction<? super String> getStringLength = s -> s.length();
 
-	static int countCharsInStream(Stream<String> stringStream, Function<String, String> streamConverter) {
+	static int countCharsInStream(Stream<String> stringStream, Function<String, String> stringMapper) {
 		return stringStream //
-				.map(streamConverter) //
+				.map(stringMapper) //
 				.mapToInt(getStringLength) //
 				.sum();
 	}

@@ -16,11 +16,11 @@ public class ListHelper {
 			outList.add(inList.get(0));
 			result.add(outList);
 		} else {
-			for (int i = 0; i <= inList.size() - 1; i++) {
+			for (E item: inList) {
 				List<E> newOutList = new ArrayList<>(outList);
 				List<E> newInList = new ArrayList<>(inList);
-				newOutList.add(inList.get(i));
-				newInList.remove(i);
+				newOutList.add(item);
+				newInList.remove(item);
 				getNextPermutation(newInList, newOutList);
 			}
 		}

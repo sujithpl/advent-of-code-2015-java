@@ -1,5 +1,8 @@
 package com.sujithpaul.adventofcode2015;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Day10 {
 
 	public static String getSequenceAfterRepetitions(String inString, int numRepetitions) {
@@ -11,22 +14,35 @@ public class Day10 {
 
 	private static String getNextSequence(String inputString) {
 		StringBuilder newString = new StringBuilder();
-		char currentChar = inputString.charAt(0);
-		int currentCharCount = 0;
-		for (int i = 0; i < inputString.length(); i++) {
-			if (inputString.charAt(i) != currentChar) {
-				newString.append(currentCharCount);
-				newString.append(currentChar);
-				currentChar = inputString.charAt(i);
-				currentCharCount = 1;
-			} else {
-				currentCharCount++;
-			}
+		Pattern pattern = Pattern.compile("(\\d)\\1*");
+		Matcher matcher = pattern.matcher(inputString);
+		while (matcher.find()) {
+			newString.append(matcher.group().length());
+			newString.append(matcher.group().charAt(0));
 		}
-		newString.append(currentCharCount);
-		newString.append(currentChar);
 		return newString.toString();
 	}
+
+	// First attempt - Imperative approach without using Regex
+	//
+	// private static String getNextSequence(String inputString) {
+	// StringBuilder newString = new StringBuilder();
+	// char currentChar = inputString.charAt(0);
+	// int currentCharCount = 0;
+	// for (int i = 0; i < inputString.length(); i++) {
+	// if (inputString.charAt(i) != currentChar) {
+	// newString.append(currentCharCount);
+	// newString.append(currentChar);
+	// currentChar = inputString.charAt(i);
+	// currentCharCount = 1;
+	// } else {
+	// currentCharCount++;
+	// }
+	// }
+	// newString.append(currentCharCount);
+	// newString.append(currentChar);
+	// return newString.toString();
+	// }
 
 	public static void main(String[] args) {
 		String sequenceString = "1113122113";

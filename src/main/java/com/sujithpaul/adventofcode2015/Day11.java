@@ -1,6 +1,14 @@
 package com.sujithpaul.adventofcode2015;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Day11 {
+
+	private static Pattern p1 = Pattern.compile("[iol]");
+	private static Pattern p2 = Pattern
+			.compile("(abc|bcd|cde|def|efg|fgh|ghi|hij|ijk|jkl|klm|lmn|mno|nop|opq|pqr|qrs|rst|tuv|uvw|vwx|wxy|xyz)");
+	private static Pattern p3 = Pattern.compile("(.)\\1.*(.)\\2");
 
 	public static String getNextValidPassword(String password) {
 		do {
@@ -10,7 +18,10 @@ public class Day11 {
 	}
 
 	private static boolean isValidPassword(String password) {
-		return !password.matches(".*[iol].*");
+		Matcher m1 = p1.matcher(password);
+		Matcher m2 = p2.matcher(password);
+		Matcher m3 = p3.matcher(password);
+		return !m1.find() && m2.find() && m3.find();
 	}
 
 	private static String incrementString(String s) {
@@ -28,8 +39,9 @@ public class Day11 {
 	}
 
 	public static void main(String[] args) {
-		System.out.println(getNextValidPassword("kkz"));
-		System.out.println(getNextValidPassword("zz"));
+		String newPassword = getNextValidPassword("hxbxwxba");
+		System.out.println("Part 1 answer: " + newPassword);
+		System.out.println("Part 2 answer: " + getNextValidPassword(newPassword));
 	}
 
 }

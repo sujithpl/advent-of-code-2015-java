@@ -1,8 +1,13 @@
 package com.sujithpaul.adventofcode2015;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sujithpaul.adventofcode2015.utilities.InputProcessor;
 
 public class Day12 {
@@ -31,6 +36,18 @@ public class Day12 {
 		System.out.println(removeRedObjects("[1,{\"c\":\"red\",\"b\":2},3]"));
 		System.out.println(removeRedObjects("{\"d\":\"red\",\"e\":[1,2,3,4],\"f\":5}"));
 		System.out.println(removeRedObjects("{\"a\":{\"b\":4},\"c\":-1}"));
+
+		ObjectMapper mapper = new ObjectMapper();
+
+		try {
+			JsonNode root = mapper.readTree(new File("src/main/resources/files/test.json"));
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }
